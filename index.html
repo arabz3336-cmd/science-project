@@ -3,817 +3,345 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>سفر به دنیای پیوندهای شیمیایی</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Galaxy - Lesson 1</title>
 <style>
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  min-height:100vh;
-  overflow-x:hidden;
-  color:white;
-  font-family:Tahoma,sans-serif;
-  text-align:center;
-  background:radial-gradient(ellipse at center,#151b30,#070912 65%,#020308);
+ margin:0;min-height:100vh;
+ font-family:Tahoma,Arial,sans-serif;
+ color:white;text-align:center;
+ background:radial-gradient(ellipse at top,#172c55 0%,#080d20 48%,#02040c 100%);
+ overflow-x:hidden;
 }
-
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background-image:
-    radial-gradient(2px 2px at 10% 20%,white 80%,transparent),
-    radial-gradient(2px 2px at 80% 30%,#b9d8ff 80%,transparent),
-    radial-gradient(1px 1px at 40% 80%,white 80%,transparent),
-    radial-gradient(2px 2px at 65% 70%,#aaaaff 80%,transparent);
-  background-size:180px 180px;
-  animation:stars 30s linear infinite;
+#letters{
+ position:fixed;inset:0;overflow:hidden;
+ pointer-events:none;z-index:0;
 }
-
-@keyframes stars{
-  from{transform:translateY(0)}
-  to{transform:translateY(-180px)}
+.letter{
+ position:absolute;color:#66d9ff;
+ font-weight:bold;opacity:.18;
+ animation:float linear infinite;
+ text-shadow:0 0 12px #36aaff;
 }
-
-header{padding:20px 10px 5px}
-
-h1{
-  color:white;
-  font-size:clamp(23px,4vw,35px);
-  text-shadow:0 0 16px #829aff;
+@keyframes float{
+ from{transform:translateY(110vh) rotate(0deg)}
+ to{transform:translateY(-15vh) rotate(360deg)}
 }
-
-h2{color:white}
-
-.subtitle{
-  color:#fff;
-  line-height:2;
+.container{
+ position:relative;z-index:1;
+ width:min(650px,94%);margin:25px auto;
+ padding:25px 20px;
+ border:1px solid #345a91;
+ border-radius:25px;
+ background:#0a1530eF;
+ box-shadow:0 0 35px #168bff35;
 }
-
-.progress{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  margin:18px;
-  flex-wrap:wrap;
-}
-
-.progress span{
-  padding:10px 16px;
-  border:1px solid #737d9c;
-  border-radius:20px;
-  color:white;
-  background:#101421;
-}
-
-.progress .active{
-  border-color:white;
-  box-shadow:0 0 13px #a7baff;
-}
-
-.stage{
-  display:none;
-  animation:appear 1s ease;
-}
-
-.stage.active{display:block}
-
-@keyframes appear{
-  from{opacity:0;transform:translateY(15px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.scene{
-  min-height:320px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:35px;
-  padding:15px 5px;
-}
-
-.atom-area{width:270px}
-
-.atom{
-  position:relative;
-  width:250px;
-  height:250px;
-  margin:auto;
-}
-
-.shell{
-  position:absolute;
-  left:50%;
-  top:50%;
-  border:2px solid rgba(190,205,255,.5);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-}
-
-.shell1{width:75px;height:75px}
-.shell2{width:145px;height:145px}
-.shell3{width:225px;height:225px}
-
-.nucleus{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:48px;
-  height:48px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  z-index:3;
-  font-weight:bold;
-  box-shadow:0 0 25px currentColor;
-}
-
-.sodium .nucleus{
-  background:#ffc14f;
-  color:#241500;
-}
-
-.chlorine .nucleus{
-  background:#53e7a0;
-  color:#06351c;
-}
-
-.electron{
-  position:absolute;
-  width:13px;
-  height:13px;
-  border-radius:50%;
-  background:#75dfff;
-  box-shadow:0 0 12px #55d9ff;
-  transform:translate(-50%,-50%);
-  z-index:4;
-}
-
-.chlorine .electron{
-  background:#a5ff80;
-  box-shadow:0 0 12px #a5ff80;
-}
-
-.atom-name{
-  color:white;
-  font-size:21px;
-  margin-top:8px;
-}
-
-.configuration{
-  color:white;
-  margin-top:8px;
-  font-size:16px;
-}
-
+h1{color:#6ce5ff;font-size:30px}
+.subtitle{color:#b9d7ff}
 .info{
-  max-width:850px;
-  min-height:100px;
-  margin:8px auto;
-  padding:18px;
-  color:white;
-  font-size:18px;
-  line-height:2.1;
+ display:flex;justify-content:space-around;
+ gap:10px;flex-wrap:wrap;margin:22px 0;
 }
-
-.result{
-  color:#b9ffc9;
-  font-size:30px;
-  min-height:55px;
-  padding:8px;
-  text-shadow:0 0 15px #54ff9b;
+.info div{
+ background:#14294b;padding:12px 18px;
+ border-radius:12px;color:#fff;
 }
-
-/* دکمه‌ها */
-
+.question{
+ margin:25px 0 15px;
+ color:#a9dfff;font-size:16px;
+}
+.persian{
+ font-size:34px;font-weight:bold;
+ color:#fff;margin:18px 0 25px;
+ text-shadow:0 0 15px #38baff;
+}
+.options{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;
+}
 button{
-  border:1px solid #dce5ff;
-  border-radius:13px;
-  padding:13px 22px;
-  margin:7px;
-  color:white;
-  background:#252d43;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 12px #829aff55;
+ border:1px solid #4386c9;
+ background:#132b50;color:white;
+ padding:15px 10px;border-radius:13px;
+ font-size:18px;cursor:pointer;
+ transition:.2s;
 }
-
-button:hover{background:#394661}
-
-/* مدل مولکول آب */
-
-.water-model{
-  width:min(700px,96vw);
-  height:380px;
-  margin:15px auto;
-  position:relative;
+button:hover{
+ background:#20518a;
+ transform:scale(1.03);
 }
-
-.oxygen-atom{
-  position:absolute;
-  width:230px;
-  height:230px;
-  left:calc(50% - 115px);
-  top:65px;
+button:disabled{cursor:default;opacity:1}
+.correct{background:#087c59!important;border-color:#45ffc0}
+.wrong{background:#922e49!important;border-color:#ff8ca7}
+#message{
+ min-height:35px;margin:18px 0;
+ font-size:19px;font-weight:bold;
 }
-
-.o-shell{
-  position:absolute;
-  left:50%;
-  top:50%;
-  border:2px solid rgba(255,150,150,.7);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
+.mainbtn{
+ background:linear-gradient(90deg,#087cbb,#5544b9);
+ border:0;padding:14px 28px;
+ margin:8px;font-weight:bold;
 }
-
-.o-shell-1{width:85px;height:85px}
-
-.o-shell-2{
-  width:215px;
-  height:215px;
-  box-shadow:0 0 15px #ff777755;
+.smallbtn{font-size:14px;padding:10px 15px}
+.hidden{display:none}
+#progress{
+ height:9px;background:#203451;
+ border-radius:20px;overflow:hidden;margin:20px 0;
 }
-
-.o-nucleus{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:52px;
-  height:52px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:#e95757;
-  color:white;
-  display:grid;
-  place-items:center;
-  font-size:23px;
-  font-weight:bold;
-  box-shadow:0 0 25px #ff5555;
-  z-index:4;
+#bar{
+ height:100%;width:0%;
+ background:linear-gradient(90deg,#27d9ff,#a16bff);
+ transition:.3s;
 }
-
-.o-electron{
-  position:absolute;
-  width:13px;
-  height:13px;
-  border-radius:50%;
-  background:#ffe58b;
-  box-shadow:0 0 12px #ffe58b;
-  transform:translate(-50%,-50%);
-  z-index:5;
-}
-
-/* دو الکترون لایه اول اکسیژن */
-.e1{left:50%;top:31.5%}
-.e2{left:50%;top:68.5%}
-
-/* چهار الکترون ناپیوندی لایه آخر */
-.lone1{left:50%;top:3.5%}
-.lone2{left:50%;top:96.5%}
-.lone3{left:3.5%;top:50%}
-.lone4{left:96.5%;top:50%}
-
-.water-hydrogen{
-  position:absolute;
-  width:100px;
-  height:100px;
-  z-index:6;
-}
-
-.h-left{
-  left:calc(50% - 235px);
-  top:5px;
-}
-
-.h-right{
-  left:calc(50% + 135px);
-  top:5px;
-}
-
-.h-shell{
-  position:absolute;
-  width:75px;
-  height:75px;
-  left:12px;
-  top:10px;
-  border:2px solid #76caff;
-  border-radius:50%;
-}
-
-.h-nucleus{
-  position:absolute;
-  width:38px;
-  height:38px;
-  left:30px;
-  top:29px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  color:#08233b;
-  background:#7bcfff;
-  font-weight:bold;
-  box-shadow:0 0 18px #55baff;
-}
-
-.h-electron{
-  position:absolute;
-  left:49px;
-  top:8px;
-  width:13px;
-  height:13px;
-  border-radius:50%;
-  background:#7beaff;
-  box-shadow:0 0 12px #7beaff;
-}
-
-.h-label{
-  position:absolute;
-  top:110px;
-  width:130px;
-  left:-15px;
-  color:white;
-  font-size:14px;
-}
-
-.o-label{
-  position:absolute;
-  top:240px;
-  left:50px;
-  width:130px;
-  color:white;
-}
-
-/* پیوندها */
-
-.water-bond{
-  position:absolute;
-  width:0;
-  height:5px;
-  border-radius:10px;
-  background:white;
-  box-shadow:0 0 15px #9eeaff;
-  z-index:2;
-  transition:width 2s ease;
-}
-
-.bond-left{
-  left:calc(50% - 160px);
-  top:116px;
-  transform:rotate(35deg);
-  transform-origin:right center;
-}
-
-.bond-right{
-  left:calc(50% + 55px);
-  top:116px;
-  transform:rotate(145deg);
-  transform-origin:left center;
-}
-
-.shared-pair{
-  position:absolute;
-  display:flex;
-  gap:7px;
-  z-index:8;
-  opacity:0;
-  transition:opacity 1s ease;
-}
-
-.shared-pair i{
-  width:13px;
-  height:13px;
-  border-radius:50%;
-  background:#ffe58b;
-  box-shadow:0 0 13px #ffe58b;
-}
-
-.pair-left{
-  left:calc(50% - 119px);
-  top:104px;
-  transform:rotate(35deg);
-}
-
-.pair-right{
-  left:calc(50% + 91px);
-  top:104px;
-  transform:rotate(-35deg);
-}
-
-.water-model.bonded .bond-left,
-.water-model.bonded .bond-right{
-  width:125px;
-}
-
-.water-model.bonded .shared-pair{
-  opacity:1;
-}
-
-.note{
-  color:white;
-  font-size:14px;
-  line-height:2;
-  padding:10px;
-}
-
-footer{
-  color:#d2d7e5;
-  padding:20px;
-  font-size:13px;
-}
-
-@media(max-width:550px){
-  .water-model{
-    transform:scale(.78);
-    transform-origin:top center;
-    margin-bottom:-70px;
-  }
-
-  .scene{gap:12px}
-  .atom-area{width:100%}
+.footer{color:#94b4d7;font-size:12px;margin-top:20px}
+@media(max-width:430px){
+ .persian{font-size:28px}
+ button{font-size:16px}
+ .container{padding:18px 12px}
 }
 </style>
 </head>
-
 <body>
 
-<header>
-  <h1>سفر به دنیای پیوندهای شیمیایی</h1>
-  <div class="subtitle">
-    از انتقال الکترون تا اشتراک الکترون‌ها
-  </div>
-</header>
+<div id="letters"></div>
 
-<div class="progress">
-  <span id="step1" class="active">۱. پیوند یونی</span>
-  <span id="step2">۲. پیوند اشتراکی آب</span>
+<div class="container">
+ <h1>🌌 English Galaxy</h1>
+ <div class="subtitle">درس اول زبان نهم | Personality</div>
+
+ <div class="info">
+  <div>⭐ امتیاز: <span id="score">0</span></div>
+  <div>📚 سؤال: <span id="number">0</span>/<span id="total">28</span></div>
+  <div>🏆 درست: <span id="right">0</span></div>
+ </div>
+
+ <div id="startScreen">
+  <h2>به کهکشان زبان خوش آمدی!</h2>
+  <p>معنی فارسی را بخوان و کلمه انگلیسی درست را انتخاب کن.</p>
+  <p>🎧 موسیقی فضایی هم در انتظارت است!</p>
+  <button class="mainbtn" onclick="startGame()">🚀 شروع بازی</button>
+ </div>
+
+ <div id="gameScreen" class="hidden">
+  <div id="progress"><div id="bar"></div></div>
+  <div class="question">معنی انگلیسی این کلمه کدام است؟</div>
+  <div class="persian" id="question"></div>
+  <div class="options" id="options"></div>
+  <div id="message"></div>
+  <button class="mainbtn hidden" id="next" onclick="nextQuestion()">سؤال بعدی ⬅️</button>
+ </div>
+
+ <div id="endScreen" class="hidden">
+  <h2>🎉 آفرین! بازی تمام شد.</h2>
+  <h2>امتیاز نهایی: <span id="finalScore"></span></h2>
+  <p id="resultText"></p>
+  <button class="mainbtn" onclick="startGame()">🔄 بازی دوباره</button>
+ </div>
+
+ <div>
+  <button class="smallbtn" onclick="toggleMusic()" id="musicBtn">🎵 روشن کردن موسیقی</button>
+ </div>
+
+ <div class="footer">English Galaxy • Grade 9 • Lesson 1</div>
 </div>
-
-<!-- بخش اول: پیوند یونی -->
-
-<section class="stage active" id="ionicStage">
-
-  <h2>مرحله اول: پیوند یونی سدیم و کلر</h2>
-  <p class="subtitle">انتقال یک الکترون از سدیم به کلر</p>
-
-  <div class="scene">
-
-    <div class="atom-area">
-      <div class="atom sodium" id="sodium">
-        <div class="shell shell1"></div>
-        <div class="shell shell2"></div>
-        <div class="shell shell3"></div>
-        <div class="nucleus">Na</div>
-      </div>
-
-      <div class="atom-name">اتم سدیم</div>
-      <div class="configuration" id="naConfig">
-        آرایش: ۲، ۸، ۱
-      </div>
-    </div>
-
-    <div class="atom-area">
-      <div class="atom chlorine" id="chlorine">
-        <div class="shell shell1"></div>
-        <div class="shell shell2"></div>
-        <div class="shell shell3"></div>
-        <div class="nucleus">Cl</div>
-      </div>
-
-      <div class="atom-name">اتم کلر</div>
-      <div class="configuration" id="clConfig">
-        آرایش: ۲، ۸، ۷
-      </div>
-    </div>
-
-  </div>
-
-  <div class="info" id="ionicInfo">
-    سدیم ۱۱ الکترون و کلر ۱۷ الکترون دارد.
-  </div>
-
-  <div class="result" id="ionicResult"></div>
-
-</section>
-
-<!-- بخش دوم: پیوند اشتراکی آب -->
-
-<section class="stage" id="waterStage">
-
-  <h2>مرحله دوم: پیوند اشتراکی در مولکول آب</h2>
-  <p class="subtitle">دو اتم هیدروژن و یک اتم اکسیژن</p>
-
-  <div class="water-model" id="waterModel">
-
-    <!-- هیدروژن اول -->
-
-    <div class="water-hydrogen h-left">
-      <div class="h-nucleus">H</div>
-      <div class="h-shell"></div>
-      <div class="h-electron"></div>
-      <div class="h-label">هیدروژن اول</div>
-    </div>
-
-    <!-- اکسیژن -->
-
-    <div class="oxygen-atom">
-
-      <div class="o-shell o-shell-1"></div>
-      <div class="o-shell o-shell-2"></div>
-      <div class="o-nucleus">O</div>
-
-      <div class="o-electron e1"></div>
-      <div class="o-electron e2"></div>
-
-      <div class="o-electron lone1"></div>
-      <div class="o-electron lone2"></div>
-      <div class="o-electron lone3"></div>
-      <div class="o-electron lone4"></div>
-
-      <div class="o-label">اکسیژن</div>
-    </div>
-
-    <!-- هیدروژن دوم -->
-
-    <div class="water-hydrogen h-right">
-      <div class="h-nucleus">H</div>
-      <div class="h-shell"></div>
-      <div class="h-electron"></div>
-      <div class="h-label">هیدروژن دوم</div>
-    </div>
-
-    <!-- دو پیوند -->
-
-    <div class="water-bond bond-left"></div>
-    <div class="water-bond bond-right"></div>
-
-    <!-- دو جفت الکترون مشترک -->
-
-    <div class="shared-pair pair-left">
-      <i></i><i></i>
-    </div>
-
-    <div class="shared-pair pair-right">
-      <i></i><i></i>
-    </div>
-
-  </div>
-
-  <div class="info" id="waterInfo">
-    اکسیژن ۶ الکترون در لایه آخر و هر هیدروژن یک الکترون دارد.
-  </div>
-
-  <div class="result" id="waterResult"></div>
-
-</section>
-
-<div>
-  <button id="startButton" onclick="startShow()">
-    شروع نمایش علمی
-  </button>
-
-  <button onclick="replay()">
-    نمایش از ابتدا
-  </button>
-
-  <button onclick="toggleMusic()" id="musicButton">
-    قطع موسیقی
-  </button>
-</div>
-
-<div class="note">
-  مدل اتمی این نمایش، مدل ساده‌شده آموزشی بور است.
-  شکل واقعی مولکول آب خمیده و زاویه پیوندهای آن حدود ۱۰۴٫۵ درجه است.
-</div>
-
-<footer>
-  آموزش علوم نهم | پیوند یونی و اشتراکی
-</footer>
 
 <script>
-const $ = id => document.getElementById(id);
+// لغات درس اول شخصیت
+const words=[
+ ["شخصیت","personality"],
+ ["باهوش","clever"],
+ ["مهربان","kind"],
+ ["سخت‌کوش","hard-working"],
+ ["کمک‌کننده","helpful"],
+ ["شجاع","brave"],
+ ["عصبانی","angry"],
+ ["بی‌دقت","careless"],
+ ["بی‌رحم","cruel"],
+ ["بی‌ادب","rude"],
+ ["ساکت و کم‌حرف","quiet"],
+ ["نگران و مضطرب","nervous"],
+ ["بامزه","funny"],
+ ["خودخواه","selfish"],
+ ["مرتب","neat"],
+ ["پرحرف","talkative"],
+ ["ناراحت","upset"],
+ ["خجالتی","shy"],
+ ["خوش‌برخورد","friendly"],
+ ["سخاوتمند","generous"],
+ ["مراقب و دقیق","careful"],
+ ["مؤدب","polite"],
+ ["صبور","patient"],
+ ["جدی","serious"],
+ ["عالی","great"],
+ ["خوب","good"],
+ ["بد","bad"],
+ ["بهترین","best"]
+];
 
-let timers = [];
-let audioContext = null;
-let musicTimer = null;
-let musicOn = true;
-let started = false;
+let questions=[];
+let current=0,score=0,right=0;
+let answered=false;
+let audioCtx=null;
+let musicTimer=null;
+let musicOn=false;
+let musicNodes=[];
 
-function later(fn,time){
-  timers.push(setTimeout(fn,time));
+// حروف متحرک پس‌زمینه
+const letters=document.getElementById("letters");
+const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+for(let i=0;i<45;i++){
+ const el=document.createElement("span");
+ el.className="letter";
+ el.textContent=alphabet[Math.floor(Math.random()*26)];
+ el.style.left=Math.random()*100+"%";
+ el.style.fontSize=(15+Math.random()*30)+"px";
+ el.style.animationDuration=(12+Math.random()*25)+"s";
+ el.style.animationDelay=(-Math.random()*25)+"s";
+ letters.appendChild(el);
 }
 
-function clearTimers(){
-  timers.forEach(clearTimeout);
-  timers=[];
+// ساخت گزینه‌ها
+function shuffle(arr){
+ return [...arr].sort(()=>Math.random()-.5);
 }
 
-function addElectrons(atom,counts){
-  atom.querySelectorAll(".electron").forEach(e=>e.remove());
-
-  const sizes=[37.5,72.5,112.5];
-
-  counts.forEach((count,shellIndex)=>{
-    const radius=sizes[shellIndex];
-
-    for(let i=0;i<count;i++){
-      const angle=(2*Math.PI*i/count)-Math.PI/2;
-      const electron=document.createElement("div");
-
-      electron.className="electron";
-      electron.style.left=(125+Math.cos(angle)*radius)+"px";
-      electron.style.top=(125+Math.sin(angle)*radius)+"px";
-
-      atom.appendChild(electron);
-    }
-  });
+function startGame(){
+ current=0;score=0;right=0;
+ questions=shuffle(words);
+ document.getElementById("score").textContent=0;
+ document.getElementById("right").textContent=0;
+ document.getElementById("number").textContent=0;
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("endScreen").classList.add("hidden");
+ document.getElementById("gameScreen").classList.remove("hidden");
+ if(!musicOn) startMusic();
+ showQuestion();
 }
 
-function initialAtoms(){
-  addElectrons($("sodium"),[2,8,1]);
-  addElectrons($("chlorine"),[2,8,7]);
+function showQuestion(){
+ answered=false;
+ const item=questions[current];
+ document.getElementById("question").textContent=item[0];
+ document.getElementById("number").textContent=current+1;
+ document.getElementById("bar").style.width=(current/words.length*100)+"%";
+ document.getElementById("message").textContent="";
+ document.getElementById("next").classList.add("hidden");
 
-  $("naConfig").textContent="آرایش: ۲، ۸، ۱";
-  $("clConfig").textContent="آرایش: ۲، ۸، ۷";
+ let wrongOptions=shuffle(words.filter(w=>w[1]!==item[1])).slice(0,3);
+ let options=shuffle([item,...wrongOptions]);
+
+ const area=document.getElementById("options");
+ area.innerHTML="";
+
+ options.forEach(option=>{
+  const btn=document.createElement("button");
+  btn.textContent=option[1];
+  btn.onclick=()=>checkAnswer(btn,option[1],item[1]);
+  area.appendChild(btn);
+ });
 }
 
-function resetAll(){
-  clearTimers();
-  initialAtoms();
+function checkAnswer(btn,chosen,correct){
+ if(answered)return;
+ answered=true;
 
-  $("ionicStage").classList.add("active");
-  $("waterStage").classList.remove("active");
+ const buttons=document.querySelectorAll("#options button");
+ buttons.forEach(b=>{
+  b.disabled=true;
+  if(b.textContent===correct)b.classList.add("correct");
+ });
 
-  $("step1").classList.add("active");
-  $("step2").classList.remove("active");
+ if(chosen===correct){
+  score+=10;right++;
+  document.getElementById("message").textContent="🌟 آفرین! پاسخ درست است.";
+  document.getElementById("score").textContent=score;
+  document.getElementById("right").textContent=right;
+  playTone(660,.15);
+  setTimeout(()=>playTone(880,.18),140);
+ }else{
+  btn.classList.add("wrong");
+  document.getElementById("message").textContent="❌ اشتباه بود! پاسخ درست: "+correct;
+  playTone(190,.25);
+ }
 
-  $("ionicInfo").textContent=
-    "سدیم ۱۱ الکترون و کلر ۱۷ الکترون دارد.";
-
-  $("ionicResult").textContent="";
-
-  $("waterInfo").textContent=
-    "اکسیژن ۶ الکترون در لایه آخر و هر هیدروژن یک الکترون دارد.";
-
-  $("waterResult").textContent="";
-  $("waterModel").classList.remove("bonded");
-
-  started=false;
-  $("startButton").textContent="شروع نمایش علمی";
+ document.getElementById("next").classList.remove("hidden");
 }
 
-function playTone(frequency,duration,volume=0.025){
-  if(!audioContext || !musicOn) return;
+function nextQuestion(){
+ current++;
+ if(current>=questions.length){
+  finishGame();
+ }else{
+  showQuestion();
+ }
+}
 
-  const oscillator=audioContext.createOscillator();
-  const gain=audioContext.createGain();
+function finishGame(){
+ document.getElementById("gameScreen").classList.add("hidden");
+ document.getElementById("endScreen").classList.remove("hidden");
+ document.getElementById("finalScore").textContent=score+" از "+(words.length*10);
+ document.getElementById("bar").style.width="100%";
 
-  oscillator.type="sine";
-  oscillator.frequency.value=frequency;
+ let percent=right/words.length*100;
+ document.getElementById("resultText").textContent=
+  percent>=85?"عالی بود! تو ستارهٔ کهکشان زبانی! 🌟":
+  percent>=60?"خوب بود! کمی بیشتر تمرین کن. 🚀":
+  "تلاش خوبی بود! دوباره بازی کن تا بهتر بشی. 💙";
+}
 
-  gain.gain.setValueAtTime(volume,audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,audioContext.currentTime+duration
-  );
+// موسیقی فضایی با Web Audio
+function getAudio(){
+ if(!audioCtx){
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+ }
+ if(audioCtx.state==="suspended")audioCtx.resume();
+ return audioCtx;
+}
 
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime+duration);
+function playTone(freq,duration){
+ try{
+  const ctx=getAudio();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type="sine";
+  osc.frequency.value=freq;
+  gain.gain.setValueAtTime(.0001,ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.07,ctx.currentTime+.03);
+  gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+duration);
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.start();osc.stop(ctx.currentTime+duration);
+ }catch(e){}
 }
 
 function startMusic(){
-  const AudioClass=
-    window.AudioContext || window.webkitAudioContext;
-
-  if(!audioContext && AudioClass){
-    audioContext=new AudioClass();
-  }
-
-  if(!audioContext) return;
-
-  audioContext.resume();
-
-  if(musicTimer) clearInterval(musicTimer);
-
-  const notes=[146.8,174.6,220,196,164.8,130.8];
-  let index=0;
-
+ try{
+  const ctx=getAudio();
+  musicOn=true;
+  document.getElementById("musicBtn").textContent="🔇 قطع موسیقی";
+  const notes=[220,330,440,330,262,392,494,392];
+  let i=0;
   musicTimer=setInterval(()=>{
-    if(musicOn){
-      playTone(notes[index%notes.length],2,0.035);
-      index++;
-    }
-  },1500);
+   if(!musicOn)return;
+   playTone(notes[i%notes.length],.45);
+   i++;
+  },550);
+ }catch(e){
+  document.getElementById("musicBtn").textContent="🎵 روشن کردن موسیقی";
+ }
+}
+
+function stopMusic(){
+ musicOn=false;
+ if(musicTimer)clearInterval(musicTimer);
+ musicTimer=null;
+ document.getElementById("musicBtn").textContent="🎵 روشن کردن موسیقی";
 }
 
 function toggleMusic(){
-  musicOn=!musicOn;
-
-  $("musicButton").textContent=
-    musicOn ? "قطع موسیقی" : "پخش موسیقی";
-
-  if(musicOn && started) startMusic();
+ if(musicOn)stopMusic();
+ else startMusic();
 }
-
-function showWater(){
-
-  $("ionicStage").classList.remove("active");
-  $("waterStage").classList.add("active");
-
-  $("step1").classList.remove("active");
-  $("step2").classList.add("active");
-
-  $("waterInfo").textContent=
-    "اکسیژن ۸ الکترون دارد: ۲ الکترون در لایه اول و ۶ الکترون در لایه دوم. هر هیدروژن نیز یک الکترون دارد.";
-
-  later(()=>{
-    $("waterInfo").textContent=
-      "اکسیژن یک الکترون با هیدروژن اول و یک الکترون با هیدروژن دوم به اشتراک می‌گذارد.";
-  },3500);
-
-  later(()=>{
-    $("waterModel").classList.add("bonded");
-
-    $("waterInfo").textContent=
-      "دو جفت الکترون مشترک تشکیل می‌شود؛ هر جفت بین اکسیژن و یکی از هیدروژن‌ها قرار دارد.";
-
-    $("waterResult").textContent="H — O — H";
-    playTone(261.6,1.5);
-  },7500);
-
-  later(()=>{
-    $("waterInfo").textContent=
-      "اکسیژن در لایه آخر خود ۸ الکترون دارد و هر هیدروژن از یک جفت الکترون مشترک استفاده می‌کند.";
-
-    $("waterResult").textContent="مولکول آب: H₂O";
-    playTone(329.6,2);
-  },11000);
-
-  later(()=>{
-    $("waterInfo").textContent=
-      "نمایش کامل شد! در پیوند یونی الکترون منتقل می‌شود؛ در پیوند اشتراکی الکترون‌ها به اشتراک گذاشته می‌شوند.";
-
-    $("startButton").textContent="نمایش کامل شد";
-  },14500);
-}
-
-function startShow(){
-  if(started) return;
-
-  started=true;
-  startMusic();
-
-  $("startButton").textContent="نمایش در حال اجراست";
-
-  $("ionicInfo").textContent=
-    "سدیم ۱۱ الکترون دارد: ۲، ۸، ۱. کلر نیز ۱۷ الکترون دارد: ۲، ۸، ۷.";
-
-  later(()=>{
-    $("ionicInfo").textContent=
-      "سدیم یک الکترون از لایه آخر خود به کلر منتقل می‌کند.";
-
-    playTone(196,1.5);
-  },3500);
-
-  later(()=>{
-    addElectrons($("sodium"),[2,8]);
-    addElectrons($("chlorine"),[2,8,8]);
-
-    $("naConfig").textContent="یون سدیم: ۲، ۸";
-    $("clConfig").textContent="یون کلرید: ۲، ۸، ۸";
-
-    $("ionicInfo").textContent=
-      "سدیم به Na⁺ و کلر به Cl⁻ تبدیل می‌شوند.";
-
-    $("ionicResult").textContent="Na⁺  +  Cl⁻";
-  },7500);
-
-  later(()=>{
-    $("ionicInfo").textContent=
-      "یون مثبت سدیم و یون منفی کلر یکدیگر را جذب می‌کنند و پیوند یونی تشکیل می‌شود.";
-
-    $("ionicResult").textContent="ترکیب یونی: NaCl";
-    playTone(220,2);
-  },10500);
-
-  later(showWater,14500);
-}
-
-function replay(){
-  resetAll();
-  startShow();
-}
-
-initialAtoms();
 </script>
-
 </body>
 </html>
