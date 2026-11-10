@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Galaxy - Lesson 1</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ font-family:Tahoma,Arial,sans-serif;
+ color:white;text-align:center;
+ background:radial-gradient(ellipse at top,#172c55 0%,#080d20 48%,#02040c 100%);
+ overflow-x:hidden;
+}
+#letters{
+ position:fixed;inset:0;overflow:hidden;
+ pointer-events:none;z-index:0;
+}
+.letter{
+ position:absolute;color:#66d9ff;
+ font-weight:bold;opacity:.18;
+ animation:float linear infinite;
+ text-shadow:0 0 12px #36aaff;
+}
+@keyframes float{
+ from{transform:translateY(110vh) rotate(0deg)}
+ to{transform:translateY(-15vh) rotate(360deg)}
+}
+.container{
+ position:relative;z-index:1;
+ width:min(650px,94%);margin:25px auto;
+ padding:25px 20px;
+ border:1px solid #345a91;
+ border-radius:25px;
+ background:#0a1530eF;
+ box-shadow:0 0 35px #168bff35;
+}
+h1{color:#6ce5ff;font-size:30px}
+.subtitle{color:#b9d7ff}
+.info{
+ display:flex;justify-content:space-around;
+ gap:10px;flex-wrap:wrap;margin:22px 0;
+}
+.info div{
+ background:#14294b;padding:12px 18px;
+ border-radius:12px;color:#fff;
+}
+.question{
+ margin:25px 0 15px;
+ color:#a9dfff;font-size:16px;
+}
+.persian{
+ font-size:34px;font-weight:bold;
+ color:#fff;margin:18px 0 25px;
+ text-shadow:0 0 15px #38baff;
+}
+.options{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+button{
+ border:1px solid #4386c9;
+ background:#132b50;color:white;
+ padding:15px 10px;border-radius:13px;
+ font-size:18px;cursor:pointer;
+ transition:.2s;
+}
+button:hover{
+ background:#20518a;
+ transform:scale(1.03);
+}
+button:disabled{cursor:default;opacity:1}
+.correct{background:#087c59!important;border-color:#45ffc0}
+.wrong{background:#922e49!important;border-color:#ff8ca7}
+#message{
+ min-height:35px;margin:18px 0;
+ font-size:19px;font-weight:bold;
+}
+.mainbtn{
+ background:linear-gradient(90deg,#087cbb,#5544b9);
+ border:0;padding:14px 28px;
+ margin:8px;font-weight:bold;
+}
+.smallbtn{font-size:14px;padding:10px 15px}
+.hidden{display:none}
+#progress{
+ height:9px;background:#203451;
+ border-radius:20px;overflow:hidden;margin:20px 0;
+}
+#bar{
+ height:100%;width:0%;
+ background:linear-gradient(90deg,#27d9ff,#a16bff);
+ transition:.3s;
+}
+.footer{color:#94b4d7;font-size:12px;margin-top:20px}
+@media(max-width:430px){
+ .persian{font-size:28px}
+ button{font-size:16px}
+ .container{padding:18px 12px}
+}
+</style>
+</head>
+<body>
+
+<div id="letters"></div>
+
+<div class="container">
+ <h1>🌌 English Galaxy</h1>
+ <div class="subtitle">درس اول زبان نهم | Personality</div>
+
+ <div class="info">
+  <div>⭐ امتیاز: <span id="score">0</span></div>
+  <div>📚 سؤال: <span id="number">0</span>/<span id="total">28</span></div>
+  <div>🏆 درست: <span id="right">0</span></div>
+ </div>
+
+ <div id="startScreen">
+  <h2>به کهکشان زبان خوش آمدی!</h2>
+  <p>معنی فارسی را بخوان و کلمه انگلیسی درست را انتخاب کن.</p>
+  <p>🎧 موسیقی فضایی هم در انتظارت است!</p>
+  <button class="mainbtn" onclick="startGame()">🚀 شروع بازی</button>
+ </div>
+
+ <div id="gameScreen" class="hidden">
+  <div id="progress"><div id="bar"></div></div>
+  <div class="question">معنی انگلیسی این کلمه کدام است؟</div>
+  <div class="persian" id="question"></div>
+  <div class="options" id="options"></div>
+  <div id="message"></div>
+  <button class="mainbtn hidden" id="next" onclick="nextQuestion()">سؤال بعدی ⬅️</button>
+ </div>
+
+ <div id="endScreen" class="hidden">
+  <h2>🎉 آفرین! بازی تمام شد.</h2>
+  <h2>امتیاز نهایی: <span id="finalScore"></span></h2>
+  <p id="resultText"></p>
+  <button class="mainbtn" onclick="startGame()">🔄 بازی دوباره</button>
+ </div>
+
+ <div>
+  <button class="smallbtn" onclick="toggleMusic()" id="musicBtn">🎵 روشن کردن موسیقی</button>
+ </div>
+
+ <div class="footer">English Galaxy • Grade 9 • Lesson 1</div>
+</div>
+
+<script>
+// لغات درس اول شخصیت
+const words=[
+ ["شخصیت","personality"],
+ ["باهوش","clever"],
+ ["مهربان","kind"],
+ ["سخت‌کوش","hard-working"],
+ ["کمک‌کننده","helpful"],
+ ["شجاع","brave"],
+ ["عصبانی","angry"],
+ ["بی‌دقت","careless"],
+ ["بی‌رحم","cruel"],
+ ["بی‌ادب","rude"],
+ ["ساکت و کم‌حرف","quiet"],
+ ["نگران و مضطرب","nervous"],
+ ["بامزه","funny"],
+ ["خودخواه","selfish"],
+ ["مرتب","neat"],
+ ["پرحرف","talkative"],
+ ["ناراحت","upset"],
+ ["خجالتی","shy"],
+ ["خوش‌برخورد","friendly"],
+ ["سخاوتمند","generous"],
+ ["مراقب و دقیق","careful"],
+ ["مؤدب","polite"],
+ ["صبور","patient"],
+ ["جدی","serious"],
+ ["عالی","great"],
+ ["خوب","good"],
+ ["بد","bad"],
+ ["بهترین","best"]
+];
+
+let questions=[];
+let current=0,score=0,right=0;
+let answered=false;
+let audioCtx=null;
+let musicTimer=null;
+let musicOn=false;
+let musicNodes=[];
+
+// حروف متحرک پس‌زمینه
+const letters=document.getElementById("letters");
+const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+for(let i=0;i<45;i++){
+ const el=document.createElement("span");
+ el.className="letter";
+ el.textContent=alphabet[Math.floor(Math.random()*26)];
+ el.style.left=Math.random()*100+"%";
+ el.style.fontSize=(15+Math.random()*30)+"px";
+ el.style.animationDuration=(12+Math.random()*25)+"s";
+ el.style.animationDelay=(-Math.random()*25)+"s";
+ letters.appendChild(el);
+}
+
+// ساخت گزینه‌ها
+function shuffle(arr){
+ return [...arr].sort(()=>Math.random()-.5);
+}
+
+function startGame(){
+ current=0;score=0;right=0;
+ questions=shuffle(words);
+ document.getElementById("score").textContent=0;
+ document.getElementById("right").textContent=0;
+ document.getElementById("number").textContent=0;
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("endScreen").classList.add("hidden");
+ document.getElementById("gameScreen").classList.remove("hidden");
+ if(!musicOn) startMusic();
+ showQuestion();
+}
+
+function showQuestion(){
+ answered=false;
+ const item=questions[current];
+ document.getElementById("question").textContent=item[0];
+ document.getElementById("number").textContent=current+1;
+ document.getElementById("bar").style.width=(current/words.length*100)+"%";
+ document.getElementById("message").textContent="";
+ document.getElementById("next").classList.add("hidden");
+
+ let wrongOptions=shuffle(words.filter(w=>w[1]!==item[1])).slice(0,3);
+ let options=shuffle([item,...wrongOptions]);
+
+ const area=document.getElementById("options");
+ area.innerHTML="";
+
+ options.forEach(option=>{
+  const btn=document.createElement("button");
+  btn.textContent=option[1];
+  btn.onclick=()=>checkAnswer(btn,option[1],item[1]);
+  area.appendChild(btn);
+ });
+}
+
+function checkAnswer(btn,chosen,correct){
+ if(answered)return;
+ answered=true;
+
+ const buttons=document.querySelectorAll("#options button");
+ buttons.forEach(b=>{
+  b.disabled=true;
+  if(b.textContent===correct)b.classList.add("correct");
+ });
+
+ if(chosen===correct){
+  score+=10;right++;
+  document.getElementById("message").textContent="🌟 آفرین! پاسخ درست است.";
+  document.getElementById("score").textContent=score;
+  document.getElementById("right").textContent=right;
+  playTone(660,.15);
+  setTimeout(()=>playTone(880,.18),140);
+ }else{
+  btn.classList.add("wrong");
+  document.getElementById("message").textContent="❌ اشتباه بود! پاسخ درست: "+correct;
+  playTone(190,.25);
+ }
+
+ document.getElementById("next").classList.remove("hidden");
+}
+
+function nextQuestion(){
+ current++;
+ if(current>=questions.length){
+  finishGame();
+ }else{
+  showQuestion();
+ }
+}
+
+function finishGame(){
+ document.getElementById("gameScreen").classList.add("hidden");
+ document.getElementById("endScreen").classList.remove("hidden");
+ document.getElementById("finalScore").textContent=score+" از "+(words.length*10);
+ document.getElementById("bar").style.width="100%";
+
+ let percent=right/words.length*100;
+ document.getElementById("resultText").textContent=
+  percent>=85?"عالی بود! تو ستارهٔ کهکشان زبانی! 🌟":
+  percent>=60?"خوب بود! کمی بیشتر تمرین کن. 🚀":
+  "تلاش خوبی بود! دوباره بازی کن تا بهتر بشی. 💙";
+}
+
+// موسیقی فضایی با Web Audio
+function getAudio(){
+ if(!audioCtx){
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+ }
+ if(audioCtx.state==="suspended")audioCtx.resume();
+ return audioCtx;
+}
+
+function playTone(freq,duration){
+ try{
+  const ctx=getAudio();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type="sine";
+  osc.frequency.value=freq;
+  gain.gain.setValueAtTime(.0001,ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.07,ctx.currentTime+.03);
+  gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+duration);
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.start();osc.stop(ctx.currentTime+duration);
+ }catch(e){}
+}
+
+function startMusic(){
+ try{
+  const ctx=getAudio();
+  musicOn=true;
+  document.getElementById("musicBtn").textContent="🔇 قطع موسیقی";
+  const notes=[220,330,440,330,262,392,494,392];
+  let i=0;
+  musicTimer=setInterval(()=>{
+   if(!musicOn)return;
+   playTone(notes[i%notes.length],.45);
+   i++;
+  },550);
+ }catch(e){
+  document.getElementById("musicBtn").textContent="🎵 روشن کردن موسیقی";
+ }
+}
+
+function stopMusic(){
+ musicOn=false;
+ if(musicTimer)clearInterval(musicTimer);
+ musicTimer=null;
+ document.getElementById("musicBtn").textContent="🎵 روشن کردن موسیقی";
+}
+
+function toggleMusic(){
+ if(musicOn)stopMusic();
+ else startMusic();
+}
+</script>
+</body>
+</html>
